@@ -7,9 +7,10 @@
 	<extension point="xbmc.service" start="login" library="service.py" />
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">This service notifies you of stinger scenes in the currently playing movie.</summary>
-		<description lang="en">This add-on notifies you of stinger scenes in the current movie. It pops up a notification when the credits roll (or at least towards the end). It uses tags to identify movies that have a stinger scene, which can be automatically added by The Universal Movie Scraper from TheMovieDB (aftercreditsstinger and duringcreditsstinger).</description>
+		<description lang="en">This add-on notifies you of stinger scenes in the current movie. It pops up a notification when the credits roll (or at least towards the end). It uses tags to identify movies that have a stinger scene, which can be automatically added by the Universal Movie Scraper from TheMovieDB (aftercreditsstinger and duringcreditsstinger).</description>
 		<platform>all</platform>
 		<source>https://github.com/rmrector/service.stinger.notification</source>
+		<forum>http://forum.kodi.tv/showthread.php?tid=254004</forum>
 		<license>The MIT License</license>
 		<disclaimer />
 		<website />
