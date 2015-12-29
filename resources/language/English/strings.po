@@ -1,0 +1,31 @@
+# Kodi Media Center language file
+# Addon Name: Stinger scene notification
+# Addon id: service.stinger.notification
+msgid ""
+msgstr ""
+
+# Notification messages
+
+msgctxt "#32000"
+msgid "There is a stinger scene during the credits. Keep watching!"
+msgstr ""
+
+msgctxt "#32001"
+msgid "There is a stinger scene after the credits. Wait for it!"
+msgstr ""
+
+# Settings
+
+msgctxt "#32900"
+msgid "Notify xx minutes before the end if no chapters available"
+msgstr ""
+
+# duringcreditsstinger shouldn't be translated
+msgctxt "#32901"
+msgid "Additional tag for duringcreditsstinger"
+msgstr ""
+
+# aftercreditsstinger shouldn't be translated
+msgctxt "#32902"
+msgid "Additional tag for aftercreditsstinger"
+msgstr ""
