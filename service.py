@@ -2,7 +2,7 @@ import json
 import xbmc
 import xbmcaddon
 
-from devhelper.pykodi import log
+from xbmc import log
 
 addon = xbmcaddon.Addon()
 DURING_CREDITS_STINGER_MESSAGE = addon.getLocalizedString(32000)
@@ -50,8 +50,6 @@ class StingerService(xbmc.Monitor):
         data = json.loads(data)
         if not data or 'item' not in data or 'id' not in data['item'] or data['item'].get('type') != 'movie':
             return
-        log(method)
-        log(data)
         if method == 'Player.OnStop':
             self.reset()
             return
@@ -60,7 +58,6 @@ class StingerService(xbmc.Monitor):
         self.currentid = data['item']['id']
 
         movie = get_movie_details(self.currentid, ['tag'])
-        log(movie)
         if not movie or 'tag' not in movie or not movie['tag']:
             self.stingertype = None
         elif 'duringcreditsstinger' in movie['tag'] or self.duringcredits_tag and self.duringcredits_tag in movie['tag']:

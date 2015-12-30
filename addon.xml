@@ -2,7 +2,6 @@
 <addon id="service.stinger.notification" name="Stinger scene notification" version="0.5.1~dev" provider-name="rmrector">
 	<requires>
 		<import addon="xbmc.python" version="2.20.0" />
-		<import addon="script.module.devhelper" version="0.0.1~dev" />
 	</requires>
 	<extension point="xbmc.service" start="login" library="service.py" />
 	<extension point="xbmc.addon.metadata">
