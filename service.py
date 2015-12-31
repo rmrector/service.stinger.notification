@@ -2,8 +2,6 @@ import json
 import xbmc
 import xbmcaddon
 
-from xbmc import log
-
 addon = xbmcaddon.Addon()
 DURING_CREDITS_STINGER_MESSAGE = addon.getLocalizedString(32000)
 AFTER_CREDITS_STINGER_MESSAGE = addon.getLocalizedString(32001)
@@ -11,6 +9,9 @@ BOTH_STINGERS_MESSAGE = addon.getLocalizedString(32002)
 DURING_CREDITS_STINGER_TAG = 'duringcreditsstinger'
 AFTER_CREDITS_STINGER_TAG = 'aftercreditsstinger'
 BOTH_STINGERS_PROPERTY = DURING_CREDITS_STINGER_TAG + ' ' + AFTER_CREDITS_STINGER_TAG
+
+def log(message, level=xbmc.LOGDEBUG):
+    xbmc.log('[%s] %s' % (addon.getAddonInfo('id'), message), level)
 
 class StingerService(xbmc.Monitor):
     def __init__(self):
@@ -26,13 +27,12 @@ class StingerService(xbmc.Monitor):
         self.notified = False
 
     def get_settings(self):
+        self.aftercredits_tag = addon.getSetting('aftercreditsstinger_tag')
+        self.duringcredits_tag = addon.getSetting('duringcreditsstinger_tag')
         try:
             self.whereis_theend = int(addon.getSetting('timeremaining_notification'))
         except ValueError:
             self.whereis_theend = 10
-
-        self.aftercredits_tag = addon.getSetting('aftercreditsstinger_tag')
-        self.duringcredits_tag = addon.getSetting('duringcreditsstinger_tag')
 
     @property
     def stingertype(self):
@@ -44,9 +44,11 @@ class StingerService(xbmc.Monitor):
         xbmc.executebuiltin('SetProperty(stinger, %s, fullscreenvideo)' % value)
 
     def run(self):
+        log('Started', xbmc.LOGINFO)
         while not self.waitForAbort(10):
             if self.currentid:
                 self.check_for_display()
+        log('Stopped', xbmc.LOGINFO)
 
     def onNotification(self, sender, method, data):
         if method not in ('Player.OnPlay', 'Player.OnStop'):
@@ -101,7 +103,7 @@ class StingerService(xbmc.Monitor):
             timeremaining = int(xbmc.getInfoLabel('Player.TimeRemaining(hh)')) * 60 + int(xbmc.getInfoLabel('Player.TimeRemaining(mm)'))
             return timeremaining < self.whereis_theend
         except ValueError, ex:
-            log('Having trouble where no trouble should be had, "%s".' % ex, xbmc.LOGDEBUG)
+            log('Having trouble where no trouble should be had, "%s".' % ex, xbmc.LOGWARNING)
             return False
 
     def notify(self):
@@ -133,10 +135,8 @@ def get_movie_details(movie_id, properties=None):
         return json_result['result']['moviedetails']
 
 if __name__ == '__main__':
-    log('Started', xbmc.LOGDEBUG)
+    service = StingerService()
     try:
-        service = StingerService()
         service.run()
     finally:
         del service
-    log('Stopped', xbmc.LOGDEBUG)
