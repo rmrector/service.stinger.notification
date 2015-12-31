@@ -1,4 +1,4 @@
-v0.5.2~dev
+v0.5.2 (2015-12-31)
 - Compatible with Gotham and up
 - Add a different message for movies with scenes during and after the credits
 v0.5.1 (2015-12-30)
