@@ -7,6 +7,10 @@ from xbmc import log
 addon = xbmcaddon.Addon()
 DURING_CREDITS_STINGER_MESSAGE = addon.getLocalizedString(32000)
 AFTER_CREDITS_STINGER_MESSAGE = addon.getLocalizedString(32001)
+BOTH_STINGERS_MESSAGE = addon.getLocalizedString(32002)
+DURING_CREDITS_STINGER_TAG = 'duringcreditsstinger'
+AFTER_CREDITS_STINGER_TAG = 'aftercreditsstinger'
+BOTH_STINGERS_PROPERTY = DURING_CREDITS_STINGER_TAG + ' ' + AFTER_CREDITS_STINGER_TAG
 
 class StingerService(xbmc.Monitor):
     def __init__(self):
@@ -60,19 +64,23 @@ class StingerService(xbmc.Monitor):
         movie = get_movie_details(self.currentid, ['tag'])
         if not movie or 'tag' not in movie or not movie['tag']:
             self.stingertype = None
-        elif 'duringcreditsstinger' in movie['tag'] or self.duringcredits_tag and self.duringcredits_tag in movie['tag']:
-            self.stingertype = 'duringcredits'
-        elif 'aftercreditsstinger' in movie['tag'] or self.aftercredits_tag and self.aftercredits_tag in movie['tag']:
-            self.stingertype = 'aftercredits'
         else:
-            self.stingertype = None
-        if not self.stingertype:
-            return
+            durringcredits = DURING_CREDITS_STINGER_TAG in movie['tag'] or self.duringcredits_tag and self.duringcredits_tag in movie['tag']
+            aftercredits = AFTER_CREDITS_STINGER_TAG in movie['tag'] or self.aftercredits_tag and self.aftercredits_tag in movie['tag']
+            if durringcredits and aftercredits:
+                self.stingertype = BOTH_STINGERS_PROPERTY
+            elif durringcredits:
+                self.stingertype = DURING_CREDITS_STINGER_TAG
+            elif aftercredits:
+                self.stingertype = AFTER_CREDITS_STINGER_TAG
+            else:
+                self.stingertype = None
 
-        try:
-            self.totalchapters = int(xbmc.getInfoLabel('Player.ChapterCount'))
-        except ValueError:
-            self.totalchapters = None
+        if self.stingertype:
+            try:
+                self.totalchapters = int(xbmc.getInfoLabel('Player.ChapterCount'))
+            except ValueError:
+                self.totalchapters = None
 
     def check_for_display(self):
         if self.totalchapters:
@@ -101,10 +109,12 @@ class StingerService(xbmc.Monitor):
             return
         self.notified = True
         message = None
-        if self.stingertype == 'duringcredits':
+        if self.stingertype == DURING_CREDITS_STINGER_TAG:
             message = DURING_CREDITS_STINGER_MESSAGE
-        elif self.stingertype == 'aftercredits':
+        elif self.stingertype == AFTER_CREDITS_STINGER_TAG:
             message = AFTER_CREDITS_STINGER_MESSAGE
+        elif self.stingertype == BOTH_STINGERS_PROPERTY:
+            message = BOTH_STINGERS_MESSAGE
         if message:
             xbmc.executebuiltin('Notification(Stinger scene notification, "%s", 5500, -)' % message)
 
