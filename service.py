@@ -67,11 +67,11 @@ class StingerService(xbmc.Monitor):
         if not movie or 'tag' not in movie or not movie['tag']:
             self.stingertype = None
         else:
-            durringcredits = DURING_CREDITS_STINGER_TAG in movie['tag'] or self.duringcredits_tag and self.duringcredits_tag in movie['tag']
+            duringcredits = DURING_CREDITS_STINGER_TAG in movie['tag'] or self.duringcredits_tag and self.duringcredits_tag in movie['tag']
             aftercredits = AFTER_CREDITS_STINGER_TAG in movie['tag'] or self.aftercredits_tag and self.aftercredits_tag in movie['tag']
-            if durringcredits and aftercredits:
+            if duringcredits and aftercredits:
                 self.stingertype = BOTH_STINGERS_PROPERTY
-            elif durringcredits:
+            elif duringcredits:
                 self.stingertype = DURING_CREDITS_STINGER_TAG
             elif aftercredits:
                 self.stingertype = AFTER_CREDITS_STINGER_TAG
