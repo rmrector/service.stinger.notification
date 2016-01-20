@@ -112,8 +112,7 @@ class StingerService(xbmc.Monitor):
         try:
             timeremaining = int(xbmc.getInfoLabel('Player.TimeRemaining(hh)')) * 60 + int(xbmc.getInfoLabel('Player.TimeRemaining(mm)'))
             return timeremaining < self.whereis_theend
-        except ValueError, ex:
-            log('Having trouble where no trouble should be had, "%s".' % ex, xbmc.LOGWARNING)
+        except ValueError:
             return False
 
     def notify(self):
