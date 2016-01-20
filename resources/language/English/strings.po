@@ -18,6 +18,14 @@ msgctxt "#32002"
 msgid "There are stinger scenes all over the place! Better sit tight."
 msgstr ""
 
+msgctxt "#32003"
+msgid "During credits"
+msgstr ""
+
+msgctxt "#32004"
+msgid "After credits"
+msgstr ""
+
 # Settings
 
 msgctxt "#32900"

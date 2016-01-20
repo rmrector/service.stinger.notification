@@ -1,3 +1,5 @@
+v0.5.4~dev
+- Add an optional skinnable window
 v0.5.3 (2015-12-31)
 - Nope, compatible with Helix and up
 v0.5.2 (2015-12-31)

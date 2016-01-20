@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<controls>
+		<control type="group">
+			<right>48</right>
+			<bottom>0</bottom>
+			<width>450</width>
+			<height>165</height>
+			<control type="image">
+				<texture border="6">FlatRounded_6px.png</texture>
+				<colordiffuse>BF000000</colordiffuse>
+			</control>
+			<control type="image">
+				<right>20</right>
+				<bottom>0</bottom>
+				<height>75</height>
+				<texture>special://home/addons/service.stinger.notification/resources/media/logo.png</texture>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<aspectratio align="right" aligny="bottom">keep</aspectratio>
+				<visible>StringCompare(Window(fullscreenvideo).Property(stinger), duringcreditsstinger aftercreditsstinger)</visible>
+			</control>
+			<control type="image">
+				<right>20</right>
+				<bottom>0</bottom>
+				<height>100</height>
+				<texture>special://home/addons/service.stinger.notification/resources/media/logo.png</texture>
+				<colordiffuse>CFFFFFFF</colordiffuse>
+				<aspectratio align="right" aligny="bottom">keep</aspectratio>
+				<visible>StringCompare(Window(fullscreenvideo).Property(stinger), aftercreditsstinger)</visible>
+			</control>
+			<control type="image">
+				<right>20</right>
+				<bottom>0</bottom>
+				<height>100</height>
+				<texture>special://home/addons/service.stinger.notification/resources/media/logo.png</texture>
+				<colordiffuse>9FFFFFFF</colordiffuse>
+				<aspectratio align="right" aligny="bottom">keep</aspectratio>
+				<visible>StringCompare(Window(fullscreenvideo).Property(stinger), duringcreditsstinger)</visible>
+			</control>
+			<control type="label" id="100">
+				<description>Localized stinger type</description>
+				<left>5</left>
+				<right>5</right>
+				<label>-</label>
+				<textcolor>FFFFFFFF</textcolor>
+				<font>font13_title</font>
+			</control>
+			<control type="label" id="101">
+				<description>Stinger message</description>
+				<top>35</top>
+				<left>5</left>
+				<right>5</right>
+				<label>-</label>
+				<wrapmultiline>true</wrapmultiline>
+				<textcolor>FFAAAAAA</textcolor>
+				<font>font13</font>
+			</control>
+			<animation effect="fade" time="200">WindowOpen</animation>
+			<animation effect="fade" time="200">WindowClose</animation>
+		</control>
+	</controls>
+</window>

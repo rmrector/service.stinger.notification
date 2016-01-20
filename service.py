@@ -1,11 +1,21 @@
 import json
+import os
+import sys
 import xbmc
 import xbmcaddon
 
 addon = xbmcaddon.Addon()
-DURING_CREDITS_STINGER_MESSAGE = addon.getLocalizedString(32000)
-AFTER_CREDITS_STINGER_MESSAGE = addon.getLocalizedString(32001)
-BOTH_STINGERS_MESSAGE = addon.getLocalizedString(32002)
+resourcelibs = xbmc.translatePath(addon.getAddonInfo('path')).decode('utf-8')
+resourcelibs = os.path.join(resourcelibs, u'resources', u'lib')
+sys.path.append(resourcelibs)
+
+from notificationwindow import NotificationWindow
+
+DURING_CREDITS_STINGER_MESSAGE = 32000
+AFTER_CREDITS_STINGER_MESSAGE = 32001
+BOTH_STINGERS_MESSAGE = 32002
+DURING_CREDITS_STINGER_TYPE = 32003
+AFTER_CREDITS_STINGER_TYPE = 32004
 DURING_CREDITS_STINGER_TAG = 'duringcreditsstinger'
 AFTER_CREDITS_STINGER_TAG = 'aftercreditsstinger'
 BOTH_STINGERS_PROPERTY = DURING_CREDITS_STINGER_TAG + ' ' + AFTER_CREDITS_STINGER_TAG
@@ -112,13 +122,26 @@ class StingerService(xbmc.Monitor):
         self.notified = True
         message = None
         if self.stingertype == DURING_CREDITS_STINGER_TAG:
-            message = DURING_CREDITS_STINGER_MESSAGE
+            message = addon.getLocalizedString(DURING_CREDITS_STINGER_MESSAGE)
+            stingertype = addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE)
         elif self.stingertype == AFTER_CREDITS_STINGER_TAG:
-            message = AFTER_CREDITS_STINGER_MESSAGE
+            message = addon.getLocalizedString(AFTER_CREDITS_STINGER_MESSAGE)
+            stingertype = addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE)
         elif self.stingertype == BOTH_STINGERS_PROPERTY:
-            message = BOTH_STINGERS_MESSAGE
-        if message:
-            xbmc.executebuiltin('Notification(Stinger scene notification, "%s", 5500, -)' % message)
+            message = addon.getLocalizedString(BOTH_STINGERS_MESSAGE)
+            stingertype = '{0}, [LOWERCASE]{1}[/LOWERCASE]'.format(addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE), addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE))
+        if not message:
+            return
+        try:
+            window = NotificationWindow('script-stinger-notification-Notification.xml', addon.getAddonInfo('path'), 'Default', '1080i')
+            window.message = message
+            window.stingertype = stingertype
+            window.show()
+            self.waitForAbort(6.5)
+            window.close()
+        except RuntimeError:
+            # Use a simple notification if it is not skinned
+            xbmc.executebuiltin('Notification("{0}", "{1}", 6500, special://home/addons/service.stinger.notification/resources/media/logo.png)'.format(stingertype, message))
 
     def onSettingsChanged(self):
         self.get_settings()
