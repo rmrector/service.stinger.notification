@@ -55,7 +55,7 @@ class StingerService(xbmc.Monitor):
 
     def run(self):
         log('Started', xbmc.LOGINFO)
-        while not self.waitForAbort(10):
+        while not self.waitForAbort(5):
             if self.currentid:
                 self.check_for_display()
         log('Stopped', xbmc.LOGINFO)
