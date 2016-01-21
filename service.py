@@ -61,6 +61,10 @@ class StingerService(xbmc.Monitor):
         log('Stopped', xbmc.LOGINFO)
 
     def onNotification(self, sender, method, data):
+        if sender == 'service.stinger.notification' and method == 'Other.TagCheck':
+            import commander
+            commander.graball_stingertags()
+            return
         if method not in ('Player.OnPlay', 'Player.OnStop'):
             return
         data = json.loads(data)

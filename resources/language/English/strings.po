@@ -26,6 +26,16 @@ msgctxt "#32004"
 msgid "After credits"
 msgstr ""
 
+# Actions
+
+msgctxt "#32400"
+msgid "Grab stinger tags for all movies"
+msgstr ""
+
+msgctxt "#32401"
+msgid "The tags 'duringcreditsstinger' and 'aftercreditsstinger' have been added to all relevant movies. Thanks, TheMovieDB! Use the Universal Movie Scraper as your movie scraper to tag new movies as they are added."
+msgstr ""
+
 # Settings
 
 msgctxt "#32900"

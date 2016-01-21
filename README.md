@@ -4,6 +4,12 @@ This add-on notifies you of stinger scenes in the current movie. It pops up a no
 
 If the video has chapters, it pops up when the last chapter starts, which is generally the credits, otherwise it pops up 10 (configurable) minutes before the movie ends.
 
+### Adding tags
+
+To add these tags to new movies automatically, set the Universal Movie Scraper as your movie scraper, and configure it to 'Get Keywords and Save as Tags from' themoviedb.org.
+
+If your existing movies don't already have these tags, you can avoid rescraping them with a handy once-off option in the add-on settings, "Grab stinger tags for all movies", which will run through your library and grab these tags for all movies from The Movie Database. New movies should still be tagged by the scraper as described above.
+
 There are also settings to add an additional tag to consider for both stinger types.
 
 ## Skinning
