@@ -4,7 +4,7 @@ class NotificationWindow(xbmcgui.WindowXMLDialog):
     def __init__(self, *args, **kwargs):
         self.stingertype = None
         self.message = None
-        super(NotificationWindow, self).__init__(*args, **kwargs)
+        super(NotificationWindow, self).__init__()
 
     def onInit(self):
         try:
