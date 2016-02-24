@@ -9,6 +9,7 @@ resourcelibs = xbmc.translatePath(addon.getAddonInfo('path')).decode('utf-8')
 resourcelibs = os.path.join(resourcelibs, u'resources', u'lib')
 sys.path.append(resourcelibs)
 
+import quickjson
 from notificationwindow import NotificationWindow
 
 DURING_CREDITS_STINGER_MESSAGE = 32000
@@ -78,7 +79,7 @@ class StingerService(xbmc.Monitor):
             return # Player.OnPlay is resuming from pause, and the rest needn't run again
         self.currentid = data['item']['id']
 
-        movie = get_movie_details(self.currentid, ['tag'])
+        movie = quickjson.get_movie_details(self.currentid)
         if not movie or 'tag' not in movie or not movie['tag']:
             self.stingertype = None
         else:
@@ -148,17 +149,6 @@ class StingerService(xbmc.Monitor):
 
     def onSettingsChanged(self):
         self.get_settings()
-
-def get_movie_details(movie_id, properties=None):
-    json_request = {'jsonrpc': '2.0', 'method': 'VideoLibrary.GetMovieDetails', 'params': {}, 'id': 1}
-    json_request['params']['movieid'] = movie_id
-    if properties:
-        json_request['params']['properties'] = properties
-
-    json_result = json.loads(xbmc.executeJSONRPC(json.dumps(json_request)))
-
-    if 'result' in json_result and 'moviedetails' in json_result['result']:
-        return json_result['result']['moviedetails']
 
 if __name__ == '__main__':
     service = StingerService()

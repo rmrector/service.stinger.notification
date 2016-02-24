@@ -13,7 +13,7 @@ nostingertags_filter = {'and': [{'field': 'tag', 'operator':'isnot', 'value':'du
 
 def get_movies(sort_method='sorttitle', ascending=True, limit=None, properties=None, listfilter=None):
     json_request = get_base_json_request('VideoLibrary.GetMovies')
-    json_request['params']['properties'] = properties if properties else movie_properties
+    json_request['params']['properties'] = properties if properties != None else movie_properties
     json_request['params']['sort'] = {'method': sort_method, 'order': 'ascending' if ascending else 'descending'}
     if listfilter:
         json_request['params']['filter'] = listfilter
@@ -25,6 +25,17 @@ def get_movies(sort_method='sorttitle', ascending=True, limit=None, properties=N
         return json_result['result']['movies']
     else:
         return []
+
+def get_movie_details(movie_id, properties=None):
+    json_request = get_base_json_request('VideoLibrary.GetMovieDetails')
+    json_request['params']['movieid'] = movie_id
+    if properties:
+        json_request['params']['properties'] = properties if properties != None else movie_properties
+
+    json_result = json.loads(xbmc.executeJSONRPC(json.dumps(json_request)))
+
+    if _check_json_result(json_result, 'moviedetails', json_request):
+        return json_result['result']['moviedetails']
 
 def set_movie_details(movie_id, **movie_details):
     json_request = get_base_json_request('VideoLibrary.SetMovieDetails')
