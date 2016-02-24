@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
 	<category label="128">
+		<setting id="use_simplenotification" label="32903" type="bool" default="false" />
 		<setting id="timeremaining_notification" label="32900" type="slider" option="int" default="10" range="5,1,30" />
 		<setting id="duringcreditsstinger_tag" label="32901" type="text" default="" />
 		<setting id="aftercreditsstinger_tag" label="32902" type="text" default="" />

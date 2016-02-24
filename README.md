@@ -14,7 +14,7 @@ There are also settings to add an additional tag to consider for both stinger ty
 
 ### Skinning
 
-It works independently from skins, using a simple notification message by default. There is a skinnable window available if that's your style, with an example in resources/skins/Example/. The built in control labels are `id="100"` for the stinger type (During credits, After credits) and `id="101"` for the full message.
+It has a simple skinnable window, and offers viewers the option to use a simple notification message. The built in control labels are `id="100"` for the stinger type (During credits, After credits) and `id="101"` for the full message.
 
 The window property **stinger** is set on the window **fullscreenvideo** when the video starts, for skins and such. Possible values for **stinger** are `duringcreditsstinger`, `aftercreditsstinger`, `duringcreditsstinger aftercreditsstinger` if the movie has both, and `None`. The property is only set when a movie in the library is playing, and empty in all other cases.
 

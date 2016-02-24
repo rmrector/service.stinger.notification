@@ -1,3 +1,5 @@
+v0.6.1~dev
+- Skinned notification by default, optional simple notification
 v0.6.0 (2016-01-21)
 - Add an optional skinnable window
 - Add a once-off option to grab stinger tags for all movies

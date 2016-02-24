@@ -37,6 +37,7 @@ class StingerService(xbmc.Monitor):
         self.notified = False
 
     def get_settings(self):
+        self.use_simplenotification = addon.getSetting('use_simplenotification') == 'true'
         self.aftercredits_tag = addon.getSetting('aftercreditsstinger_tag')
         self.duringcredits_tag = addon.getSetting('duringcreditsstinger_tag')
         try:
@@ -135,16 +136,15 @@ class StingerService(xbmc.Monitor):
             stingertype = '{0}, [LOWERCASE]{1}[/LOWERCASE]'.format(addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE), addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE))
         if not message:
             return
-        try:
+        if self.use_simplenotification:
+            xbmc.executebuiltin('Notification("{0}", "{1}", 6500, special://home/addons/service.stinger.notification/resources/media/logo.png)'.format(stingertype, message))
+        else:
             window = NotificationWindow('script-stinger-notification-Notification.xml', addon.getAddonInfo('path'), 'Default', '1080i')
             window.message = message
             window.stingertype = stingertype
             window.show()
             self.waitForAbort(6.5)
             window.close()
-        except RuntimeError:
-            # Use a simple notification if it is not skinned
-            xbmc.executebuiltin('Notification("{0}", "{1}", 6500, special://home/addons/service.stinger.notification/resources/media/logo.png)'.format(stingertype, message))
 
     def onSettingsChanged(self):
         self.get_settings()

@@ -38,6 +38,10 @@ msgstr ""
 
 # Settings
 
+msgctxt "#32903"
+msgid "Use simple notification message"
+msgstr ""
+
 msgctxt "#32900"
 msgid "Notify xx minutes before the end if no chapters available"
 msgstr ""
