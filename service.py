@@ -27,7 +27,11 @@ def log(message, level=xbmc.LOGDEBUG):
 class StingerService(xbmc.Monitor):
     def __init__(self):
         super(StingerService, self).__init__()
-        self.reset()
+        self.currentid = None
+        self.totalchapters = None
+        self._stingertype = None
+        self.notified = False
+        self.externalchapterstart = None
         self.get_settings()
 
     def reset(self):
