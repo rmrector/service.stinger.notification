@@ -10,6 +10,7 @@ resourcelibs = os.path.join(resourcelibs, u'resources', u'lib')
 sys.path.append(resourcelibs)
 
 import quickjson
+from chapters import ChaptersFile
 from notificationwindow import NotificationWindow
 
 DURING_CREDITS_STINGER_MESSAGE = 32000
@@ -40,9 +41,12 @@ class StingerService(xbmc.Monitor):
         self._stingertype = None
         xbmc.executebuiltin('ClearProperty(stinger, fullscreenvideo)')
         self.notified = False
+        self.externalchapterstart = None
 
     def get_settings(self):
         self.use_simplenotification = addon.getSetting('use_simplenotification') == 'true'
+        self.query_chapterdb = addon.getSetting('query_chapterdb') == 'true'
+        self.preferredfps = addon.getSetting('preferredfps')
         self.aftercredits_tag = addon.getSetting('aftercreditsstinger_tag')
         self.duringcredits_tag = addon.getSetting('duringcreditsstinger_tag')
         try:
@@ -62,8 +66,9 @@ class StingerService(xbmc.Monitor):
     def run(self):
         log('Started', xbmc.LOGINFO)
         while not self.waitForAbort(5):
-            if self.currentid:
-                self.check_for_display()
+            if self.currentid and not self.notified:
+                if self.check_for_display():
+                    self.notify()
         log('Stopped', xbmc.LOGINFO)
 
     def onNotification(self, sender, method, data):
@@ -79,10 +84,11 @@ class StingerService(xbmc.Monitor):
         if method == 'Player.OnStop':
             self.reset()
             return
-        if self.currentid:
-            return # Player.OnPlay is resuming from pause, and the rest needn't run again
-        self.currentid = data['item']['id']
+        if not self.currentid:
+            self.currentid = data['item']['id']
+            self.checkstingerinfo()
 
+    def checkstingerinfo(self):
         movie = quickjson.get_movie_details(self.currentid)
         if not movie or 'tag' not in movie or not movie['tag']:
             self.stingertype = None
@@ -99,18 +105,36 @@ class StingerService(xbmc.Monitor):
                 self.stingertype = None
 
         if self.stingertype:
+            title = xbmc.getInfoLabel('Player.Title')
+            while not title:
+                if self.waitForAbort(0.2):
+                    return
+                title = xbmc.getInfoLabel('Player.Title')
             try:
                 self.totalchapters = int(xbmc.getInfoLabel('Player.ChapterCount'))
             except ValueError:
                 self.totalchapters = None
+            if not self.totalchapters:
+                duration = xbmc.getInfoLabel('Player.Duration(hh:mm:ss)')
+                duration = duration.split(':', 2)
+                try:
+                    duration = int(duration[0]) * 60 * 60 + int(duration[1]) * 60 + int(duration[2])
+                except ValueError:
+                    return
+                chapters = ChaptersFile(title, duration, self.preferredfps, self.query_chapterdb)
+                self.externalchapterstart = chapters.lastchapterstart
 
     def check_for_display(self):
         if self.totalchapters:
             if self.on_lastchapter():
-                self.notify()
+                return True
+        elif self.externalchapterstart:
+            if self.on_lastexternalchapter():
+                return True
         else:
             if self.near_endofmovie():
-                self.notify()
+                return True
+        return False
 
     def on_lastchapter(self):
         try:
@@ -118,9 +142,13 @@ class StingerService(xbmc.Monitor):
         except ValueError:
             return False
 
+    def on_lastexternalchapter(self):
+        return xbmc.getInfoLabel('Player.Time(hh:mm:ss)') > self.externalchapterstart
+
     def near_endofmovie(self):
         try:
-            timeremaining = int(xbmc.getInfoLabel('Player.TimeRemaining(hh)')) * 60 + int(xbmc.getInfoLabel('Player.TimeRemaining(mm)'))
+            timeremaining = xbmc.getInfoLabel('Player.TimeRemaining(hh:mm)').split(':', 1)
+            timeremaining = int(timeremaining[0]) * 60 + int(timeremaining[1])
             return timeremaining < self.whereis_theend
         except ValueError:
             return False

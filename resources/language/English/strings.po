@@ -29,29 +29,38 @@ msgstr ""
 # Actions
 
 msgctxt "#32400"
-msgid "Grab stinger tags for all movies"
+msgid "Grab stinger tags from TheMovieDB for all movies"
 msgstr ""
 
 msgctxt "#32401"
 msgid "The tags 'duringcreditsstinger' and 'aftercreditsstinger' have been added to all relevant movies. Thanks, TheMovieDB! Use the Universal Movie Scraper as your movie scraper to tag new movies as they are added."
 msgstr ""
 
+# Settings headings
+
+msgctxt "#32999"
+msgid "Consider additional tag for"
+msgstr ""
+# duringcreditsstinger and aftercreditsstinger are then listed below this heading
+
+msgctxt "#32998"
+msgid "Actions"
+msgstr ""
+
 # Settings
 
-msgctxt "#32903"
+msgctxt "#32900"
 msgid "Use simple notification message"
 msgstr ""
 
-msgctxt "#32900"
+msgctxt "#32901"
 msgid "Notify xx minutes before the end if no chapters available"
 msgstr ""
 
-# duringcreditsstinger shouldn't be translated
-msgctxt "#32901"
-msgid "Additional tag for duringcreditsstinger"
+msgctxt "#32902"
+msgid "Query the ChapterDb if video is missing chapters"
 msgstr ""
 
-# aftercreditsstinger shouldn't be translated
-msgctxt "#32902"
-msgid "Additional tag for aftercreditsstinger"
+msgctxt "#32903"
+msgid "Preferred FPS for ChapterDb queries"
 msgstr ""

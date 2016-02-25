@@ -2,15 +2,14 @@
 
 This add-on notifies you of stinger scenes in the current movie. It pops up a notification when the credits roll (or at least towards the end). It uses tags to identify movies that have a stinger, which can be automatically added by the [Universal Movie Scraper](http://forum.kodi.tv/showthread.php?tid=129821) from [The Movie Database](https://www.themoviedb.org/), as aftercreditsstinger and duringcreditsstinger.
 
-If the video has chapters, it pops up when the last chapter starts, which is generally the credits, otherwise it pops up 10 (configurable) minutes before the movie ends.
+If there are no chapters on your media file, the add-on searches for them on the [ChapterDb](http://www.chapterdb.org/). If chapters are available, the notification pops up when the last chapter starts, which is generally the credits, otherwise 10 (configurable) minutes before the movie ends.
+
 
 ### Adding tags
 
 To add these tags to new movies automatically, set the Universal Movie Scraper as your movie scraper, and configure it to 'Get Keywords and Save as Tags from' themoviedb.org.
 
-If your existing movies don't already have these tags, you can avoid rescraping them with a handy once-off option in the add-on settings, "Grab stinger tags for all movies", which will run through your library and grab these tags for all movies from The Movie Database. New movies should still be tagged by the scraper as described above.
-
-There are also settings to add an additional tag to consider for both stinger types.
+If your existing movies don't already have these tags, you can avoid rescraping them with a handy once-off option in the add-on settings under "Advanced", "Grab stinger tags from TheMovieDB for all movies", which will run through your library and grab these tags for all movies from The Movie Database. New movies should still be tagged by the scraper as described above.
 
 ### Skinning
 
@@ -20,9 +19,4 @@ The window property **stinger** is set on the window **fullscreenvideo** when th
 
 ### Gotchas
 
-1. If your video doesn't have chapters, the notification pops up X minutes before the movie ends, which often enough will be while the movie is still ending, or after the credits have started, no matter the value of X.  
-2. A chunk of movies don't have a separate chapter for the credits, so the notification pops up before the credits. Examples are Dogma and Ferris Bueller's Day Off.
-
-### What's next?
-
-Maybe grab missing chapters from the [ChapterDb](http://www.chapterdb.org/) API, slaying gotcha #1.
+Movies don't always start the last chapter when the credits begin rolling, so the notification won't be timed right for a handful of movies.
