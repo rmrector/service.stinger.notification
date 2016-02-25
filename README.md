@@ -4,6 +4,7 @@ This add-on notifies you of stinger scenes in the current movie. It pops up a no
 
 If there are no chapters on your media file, the add-on searches for them on the [ChapterDb](http://www.chapterdb.org/). If chapters are available, the notification pops up when the last chapter starts, which is generally the credits, otherwise 10 (configurable) minutes before the movie ends.
 
+[Support and discussion thread](http://forum.kodi.tv/showthread.php?tid=254004) on the Kodi forums.
 
 ### Adding tags
 
@@ -15,7 +16,7 @@ If your existing movies don't already have these tags, you can avoid rescraping 
 
 It has a simple skinnable window, and offers viewers the option to use a simple notification message. The built in control labels are `id="100"` for the stinger type (During credits, After credits) and `id="101"` for the full message.
 
-The window property **stinger** is set on the window **fullscreenvideo** when the video starts, for skins and such. Possible values for **stinger** are `duringcreditsstinger`, `aftercreditsstinger`, `duringcreditsstinger aftercreditsstinger` if the movie has both, and `None`. The property is only set when a movie in the library is playing, and empty in all other cases.
+The window property **stinger** is set on the window **fullscreenvideo** when the video starts. Possible values for **stinger** are `duringcreditsstinger`, `aftercreditsstinger`, `duringcreditsstinger aftercreditsstinger` if the movie has both, and `None`. The property is only set when a movie in the library is playing, and empty in all other cases.
 
 ### Gotchas
 

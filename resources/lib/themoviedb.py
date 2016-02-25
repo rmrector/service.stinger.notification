@@ -1,7 +1,7 @@
 import requests
-import xbmc
 
 class TheMovieDatabase(object):
+    # username for this key: rmrector.kodistinger
     apikey = '847ea2f858b0275a3d941528605f5a11'
     apiurl = 'http://api.themoviedb.org/3/movie/%s/keywords'
 
