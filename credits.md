@@ -1,4 +1,4 @@
-Two images from the Noun Project are used in this add-on, both available under the [CC-BY license](http://creativecommons.org/licenses/by/3.0/us/).
+Two images from [the Noun Project](http://thenounproject.com) are used in this add-on.
 
 [Scorpio](https://thenounproject.com/term/scorpio/207235) by Michelle Abrahall
 
