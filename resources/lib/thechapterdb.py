@@ -15,7 +15,7 @@ class TheChapterDB(object):
         self.session = requests.Session()
         self.session.headers['Accept'] = 'text/xml'
 
-    def get_root(self, title):
+    def _get_root(self, title):
         try:
             result = self.session.get(self.apiurl, params={'title': title}, headers={'apikey': self.apikey}, timeout=15)
         except (Timeout, ConnectionError):
@@ -32,14 +32,14 @@ class TheChapterDB(object):
     def get_simplechapterfile(self, title, duration, fps):
         log('Looking up {0}'.format(title), xbmc.LOGINFO)
         title = firstcleantitle(title)
-        root = self.get_root(title)
+        root = self._get_root(title)
         if root is None:
             return None
         result = first_checks(root, duration, fps)
         if not result:
             ctitle = cleantitle(title)
             if ctitle is not title:
-                root = self.get_root(ctitle)
+                root = self._get_root(ctitle)
                 if root is None:
                     return None
                 result = first_checks(root, duration, fps)

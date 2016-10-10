@@ -111,7 +111,7 @@ class StingerService(xbmc.Monitor):
         if self.stingertype:
             title = xbmc.getInfoLabel('Player.Title')
             while not title:
-                if self.waitForAbort(0.2):
+                if self.waitForAbort(2):
                     return
                 title = xbmc.getInfoLabel('Player.Title')
             try:
@@ -119,8 +119,9 @@ class StingerService(xbmc.Monitor):
             except ValueError:
                 self.totalchapters = None
             if not self.totalchapters:
-                duration = xbmc.getInfoLabel('Player.Duration(hh:mm:ss)')
-                duration = duration.split(':', 2)
+                duration = xbmc.getInfoLabel('Player.Duration(hh:mm:ss)').split(':', 2)
+                if len(duration) < 3:
+                    return
                 try:
                     duration = int(duration[0]) * 60 * 60 + int(duration[1]) * 60 + int(duration[2])
                 except ValueError:
