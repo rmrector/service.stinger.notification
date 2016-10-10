@@ -2,7 +2,7 @@ import re
 import requests
 import xbmc
 import xml.etree.ElementTree as ET
-from requests.exceptions import Timeout
+from requests import Timeout, ConnectionError, HTTPError
 
 def log(message, level=xbmc.LOGDEBUG):
     xbmc.log('[service.stinger.notification:chapterdb] %s' % (message), level)
@@ -18,11 +18,15 @@ class TheChapterDB(object):
     def get_root(self, title):
         try:
             result = self.session.get(self.apiurl, params={'title': title}, headers={'apikey': self.apikey}, timeout=15)
-        except Timeout:
+        except (Timeout, ConnectionError):
             return None
         if result.status_code == requests.codes.not_found:
             return None
-        result.raise_for_status()
+        try:
+            result.raise_for_status()
+        except HTTPError as ex:
+            log('HTTP Error: {0}'.format(ex.message), xbmc.LOGWARNING)
+            return None
         return ET.fromstring(result.content)
 
     def get_simplechapterfile(self, title, duration, fps):
