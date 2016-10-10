@@ -4,6 +4,7 @@
 		<setting id="use_simplenotification" label="32900" type="bool" default="false" />
 		<setting id="timeremaining_notification" label="32901" type="rangeofnum" rangestart="0" rangeend="30" default="10" elements="31" valueformat="32906" />
 		<setting id="query_chapterdb" label="32902" type="bool" default="true" />
+		<setting id="notification_visibletime" label="32904" type="rangeofnum" rangestart="0" rangeend="60" default="8" elements="61" valueformat="32905" />
 	</category>
 	<category label="$LOCALIZE[10038]">
 		<setting id="preferredfps" label="32903" type="labelenum" default="23.976" values="23.976|25|29.97" />

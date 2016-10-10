@@ -1,3 +1,6 @@
+v1.0.2
+- Add an option to set amount of time to display the notification
+
 v1.0.1 (2016-08-26)
 - Fix basic add-on text display in add-on info
 v1.0.0 (2016-07-24)

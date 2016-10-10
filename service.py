@@ -53,6 +53,10 @@ class StingerService(xbmc.Monitor):
             self.whereis_theend = int(addon.getSetting('timeremaining_notification'))
         except ValueError:
             self.whereis_theend = 10
+        try:
+            self.notification_visibletime = int(addon.getSetting('notification_visibletime'))
+        except ValueError:
+            self.notification_visibletime = 8
 
     @property
     def stingertype(self):
@@ -170,13 +174,13 @@ class StingerService(xbmc.Monitor):
         if not message:
             return
         if self.use_simplenotification:
-            xbmc.executebuiltin('Notification("{0}", "{1}", 6500, special://home/addons/service.stinger.notification/resources/media/logo.png)'.format(stingertype, message))
+            xbmc.executebuiltin('Notification("{0}", "{1}", {2}, special://home/addons/service.stinger.notification/resources/media/logo.png)'.format(stingertype, message, self.notification_visibletime * 1000))
         else:
             window = NotificationWindow('script-stinger-notification-Notification.xml', addon.getAddonInfo('path'), 'Default', '1080i')
             window.message = message
             window.stingertype = stingertype
             window.show()
-            self.waitForAbort(6.5)
+            self.waitForAbort(self.notification_visibletime)
             window.close()
 
     def onSettingsChanged(self):
