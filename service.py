@@ -18,7 +18,7 @@ BOTH_STINGERS_PROPERTY = DURING_CREDITS_STINGER_TAG + ' ' + AFTER_CREDITS_STINGE
 addon = xbmcaddon.Addon()
 
 def log(message, level=xbmc.LOGDEBUG):
-    xbmc.log('[%s] %s' % (addon.getAddonInfo('id'), message), level)
+    xbmc.log('[service.stinger.notification] {0}'.format(message), level)
 
 class StingerService(xbmc.Monitor):
     def __init__(self):
