@@ -119,13 +119,7 @@ class StingerService(xbmc.Monitor):
             except ValueError:
                 self.totalchapters = None
             if not self.totalchapters:
-                duration = xbmc.getInfoLabel('Player.Duration(hh:mm:ss)').split(':', 2)
-                if len(duration) < 3:
-                    return
-                try:
-                    duration = int(duration[0]) * 60 * 60 + int(duration[1]) * 60 + int(duration[2])
-                except ValueError:
-                    return
+                duration = xbmc.Player().getTotalTime()
                 chapters = ChaptersFile(title, duration, self.preferredfps, self.query_chapterdb)
                 self.externalchapterstart = chapters.lastchapterstart
 
@@ -152,8 +146,7 @@ class StingerService(xbmc.Monitor):
 
     def near_endofmovie(self):
         try:
-            timeremaining = xbmc.getInfoLabel('Player.TimeRemaining(hh:mm)').split(':', 1)
-            timeremaining = int(timeremaining[0]) * 60 + int(timeremaining[1])
+            timeremaining = (xbmc.Player().getTotalTime() - xbmc.Player().getTime()) // 60
             return timeremaining < self.whereis_theend
         except ValueError:
             return False
