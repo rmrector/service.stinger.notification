@@ -1,17 +1,10 @@
 import json
-import os
-import sys
 import xbmc
 import xbmcaddon
 
-addon = xbmcaddon.Addon()
-resourcelibs = xbmc.translatePath(addon.getAddonInfo('path')).decode('utf-8')
-resourcelibs = os.path.join(resourcelibs, u'resources', u'lib')
-sys.path.append(resourcelibs)
-
-import quickjson
-from chapters import ChaptersFile
-from notificationwindow import NotificationWindow
+from lib import quickjson
+from lib.chapters import ChaptersFile
+from lib.notificationwindow import NotificationWindow
 
 DURING_CREDITS_STINGER_MESSAGE = 32000
 AFTER_CREDITS_STINGER_MESSAGE = 32001
@@ -21,6 +14,8 @@ AFTER_CREDITS_STINGER_TYPE = 32004
 DURING_CREDITS_STINGER_TAG = 'duringcreditsstinger'
 AFTER_CREDITS_STINGER_TAG = 'aftercreditsstinger'
 BOTH_STINGERS_PROPERTY = DURING_CREDITS_STINGER_TAG + ' ' + AFTER_CREDITS_STINGER_TAG
+
+addon = xbmcaddon.Addon()
 
 def log(message, level=xbmc.LOGDEBUG):
     xbmc.log('[%s] %s' % (addon.getAddonInfo('id'), message), level)
@@ -77,7 +72,7 @@ class StingerService(xbmc.Monitor):
 
     def onNotification(self, sender, method, data):
         if sender == 'service.stinger.notification' and method == 'Other.TagCheck':
-            import commander
+            from lib import commander
             commander.graball_stingertags()
             return
         if method not in ('Player.OnPlay', 'Player.OnStop'):
