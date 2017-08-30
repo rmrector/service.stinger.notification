@@ -63,12 +63,10 @@ class StingerService(xbmc.Monitor):
         xbmc.executebuiltin('SetProperty(stinger, %s, fullscreenvideo)' % value)
 
     def run(self):
-        log('Started', xbmc.LOGINFO)
         while not self.waitForAbort(5):
             if self.currentid and not self.notified:
                 if self.check_for_display():
                     self.notify()
-        log('Stopped', xbmc.LOGINFO)
 
     def onNotification(self, sender, method, data):
         if sender == 'service.stinger.notification' and method == 'Other.TagCheck':
@@ -118,9 +116,9 @@ class StingerService(xbmc.Monitor):
                 self.totalchapters = int(xbmc.getInfoLabel('Player.ChapterCount'))
             except ValueError:
                 self.totalchapters = None
-            if not self.totalchapters:
+            if not self.totalchapters and xbmc.Player().isPlayingVideo():
                 duration = xbmc.Player().getTotalTime()
-                chapters = ChaptersFile(title, duration, self.preferredfps, self.query_chapterdb)
+                chapters = ChaptersFile(title, int(duration), self.preferredfps, self.query_chapterdb)
                 self.externalchapterstart = chapters.lastchapterstart
 
     def check_for_display(self):
@@ -145,6 +143,8 @@ class StingerService(xbmc.Monitor):
         return xbmc.getInfoLabel('Player.Time(hh:mm:ss)') > self.externalchapterstart
 
     def near_endofmovie(self):
+        if not xbmc.Player().isPlayingVideo():
+            return False
         try:
             timeremaining = (xbmc.Player().getTotalTime() - xbmc.Player().getTime()) // 60
             return timeremaining < self.whereis_theend
@@ -189,19 +189,21 @@ def hack_onplay_databits():
     #  from home window or other non-media windows. http://trac.kodi.tv/ticket/17270
 
     # VideoInfoTag can be incorrect immediately after the notification as well, keep trying
-    data_id = xbmc.Player().getVideoInfoTag().getDbId()
-    count = 0
-    while (not data_id or data_id == -1) and count < 4:
-        xbmc.sleep(500)
-        data_id = xbmc.Player().getVideoInfoTag().getDbId()
-        count += 1
-    if not data_id or data_id == -1:
+    if not xbmc.Player().isPlayingVideo(): # But not isPlayingVideo
         return -1, ""
-    return data_id, xbmc.Player().getVideoInfoTag().getMediaType()
+    mediatype = xbmc.Player().getVideoInfoTag().getMediaType()
+    count = 0
+    while not mediatype and count < 10:
+        xbmc.sleep(200)
+        if not xbmc.Player().isPlayingVideo():
+            return -1, ""
+        mediatype = xbmc.Player().getVideoInfoTag().getMediaType()
+        count += 1
+    if not mediatype:
+        return -1, ""
+    return xbmc.Player().getVideoInfoTag().getDbId(), mediatype
 
 if __name__ == '__main__':
-    service = StingerService()
-    try:
-        service.run()
-    finally:
-        del service
+    log('Started', xbmc.LOGINFO)
+    StingerService().run()
+    log('Stopped', xbmc.LOGINFO)
