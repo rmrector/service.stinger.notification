@@ -13,7 +13,7 @@
 		<news lang="en">v1.0.3 (2017-04-14)
 - Work around Kodi bug introduced in Krypton when playing movie from Home window</news>
 		<source>https://github.com/rmrector/service.stinger.notification</source>
-		<forum>http://forum.kodi.tv/showthread.php?tid=254004</forum>
+		<forum>https://forum.kodi.tv/showthread.php?tid=254004</forum>
 		<license>The MIT License</license>
 		<platform>all</platform>
 		<website />
