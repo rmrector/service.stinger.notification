@@ -106,20 +106,22 @@ class StingerService(xbmc.Monitor):
             else:
                 self.stingertype = None
 
-        if self.stingertype:
+        if not self.stingertype:
+            self.currentid = None
+            return
+        title = xbmc.getInfoLabel('Player.Title')
+        while not title:
+            if self.waitForAbort(2):
+                return
             title = xbmc.getInfoLabel('Player.Title')
-            while not title:
-                if self.waitForAbort(2):
-                    return
-                title = xbmc.getInfoLabel('Player.Title')
-            try:
-                self.totalchapters = int(xbmc.getInfoLabel('Player.ChapterCount'))
-            except ValueError:
-                self.totalchapters = None
-            if not self.totalchapters and xbmc.Player().isPlayingVideo():
-                duration = xbmc.Player().getTotalTime()
-                chapters = ChaptersFile(title, int(duration), self.preferredfps, self.query_chapterdb)
-                self.externalchapterstart = chapters.lastchapterstart
+        try:
+            self.totalchapters = int(xbmc.getInfoLabel('Player.ChapterCount'))
+        except ValueError:
+            self.totalchapters = None
+        if not self.totalchapters and xbmc.Player().isPlayingVideo():
+            duration = xbmc.Player().getTotalTime()
+            chapters = ChaptersFile(title, int(duration), self.preferredfps, self.query_chapterdb)
+            self.externalchapterstart = chapters.lastchapterstart
 
     def check_for_display(self):
         if self.totalchapters:
