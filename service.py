@@ -73,7 +73,8 @@ class StingerService(xbmc.Monitor):
             from lib import commander
             commander.graball_stingertags()
             return
-        if method not in ('Player.OnPlay', 'Player.OnStop'):
+        if method not in ('Player.OnStop', 'Player.OnAVStart') if quickjson.get_kodi_version() >= 18 \
+                else ('Player.OnPlay', 'Player.OnStop'):
             return
 
         data = json.loads(data)
@@ -109,17 +110,22 @@ class StingerService(xbmc.Monitor):
         if not self.stingertype:
             self.currentid = None
             return
+        player = xbmc.Player()
         title = xbmc.getInfoLabel('Player.Title')
         while not title:
-            if self.waitForAbort(2):
+            if self.waitForAbort(2) or not player.isPlayingVideo():
+                self.currentid = None
                 return
             title = xbmc.getInfoLabel('Player.Title')
         try:
             self.totalchapters = int(xbmc.getInfoLabel('Player.ChapterCount'))
         except ValueError:
             self.totalchapters = None
-        if not self.totalchapters and xbmc.Player().isPlayingVideo():
-            duration = xbmc.Player().getTotalTime()
+        if not player.isPlayingVideo():
+            self.currentid = None
+            return
+        if not self.totalchapters:
+            duration = player.getTotalTime()
             chapters = ChaptersFile(title, int(duration), self.preferredfps, self.query_chapterdb)
             self.externalchapterstart = chapters.lastchapterstart
 
@@ -145,10 +151,11 @@ class StingerService(xbmc.Monitor):
         return xbmc.getInfoLabel('Player.Time(hh:mm:ss)') > self.externalchapterstart
 
     def near_endofmovie(self):
-        if not xbmc.Player().isPlayingVideo():
+        player = xbmc.Player()
+        if not player.isPlayingVideo():
             return False
         try:
-            timeremaining = (xbmc.Player().getTotalTime() - xbmc.Player().getTime()) // 60
+            timeremaining = (player.getTotalTime() - player.getTime()) // 60
             return timeremaining < self.whereis_theend
         except ValueError:
             return False
