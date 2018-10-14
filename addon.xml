@@ -24,5 +24,8 @@ v1.0.3 (2017-04-14)
 		<website />
 		<language />
 		<email />
+		<assets>
+			<icon>icon.png</icon>
+		</assets>
 	</extension>
 </addon>
