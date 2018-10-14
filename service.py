@@ -73,8 +73,8 @@ class StingerService(xbmc.Monitor):
             from lib import commander
             commander.graball_stingertags()
             return
-        if method not in ('Player.OnStop', 'Player.OnAVStart') if quickjson.get_kodi_version() >= 18 \
-                else ('Player.OnPlay', 'Player.OnStop'):
+        if method not in (('Player.OnStop', 'Player.OnAVStart') if quickjson.get_kodi_version() >= 18
+                else ('Player.OnPlay', 'Player.OnStop')):
             return
 
         data = json.loads(data)
