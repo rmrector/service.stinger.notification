@@ -166,14 +166,14 @@ class StingerService(xbmc.Monitor):
         self.notified = True
         message = None
         if self.stingertype == DURING_CREDITS_STINGER_TAG:
-            message = addon.getLocalizedString(DURING_CREDITS_STINGER_MESSAGE)
-            stingertype = addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE)
+            message = addon.getLocalizedString(DURING_CREDITS_STINGER_MESSAGE).encode('utf-8')
+            stingertype = addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE).encode('utf-8')
         elif self.stingertype == AFTER_CREDITS_STINGER_TAG:
-            message = addon.getLocalizedString(AFTER_CREDITS_STINGER_MESSAGE)
-            stingertype = addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE)
+            message = addon.getLocalizedString(AFTER_CREDITS_STINGER_MESSAGE).encode('utf-8')
+            stingertype = addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE).encode('utf-8')
         elif self.stingertype == BOTH_STINGERS_PROPERTY:
-            message = addon.getLocalizedString(BOTH_STINGERS_MESSAGE)
-            stingertype = '{0}, [LOWERCASE]{1}[/LOWERCASE]'.format(addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE), addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE))
+            message = addon.getLocalizedString(BOTH_STINGERS_MESSAGE).encode('utf-8')
+            stingertype = '{0}, [LOWERCASE]{1}[/LOWERCASE]'.format(addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE).encode('utf-8'), addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE).encode('utf-8'))
         if not message:
             return
         if self.use_simplenotification:
