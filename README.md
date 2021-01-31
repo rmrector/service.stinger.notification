@@ -17,7 +17,6 @@ the movie ends.
 
 [Support and discussion thread] on the Kodi forums.
 
-[ChapterDb]: http://www.chapterdb.org/
 [Universal Movie Scraper]: https://forum.kodi.tv/showthread.php?tid=129821
 [The Movie Database]: https://www.themoviedb.org/
 [Support and discussion thread]: https://forum.kodi.tv/showthread.php?tid=254004

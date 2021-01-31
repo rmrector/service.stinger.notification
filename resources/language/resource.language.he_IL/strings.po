@@ -65,22 +65,14 @@ msgctxt "#32901"
 msgid "If no chapters available, display notification "
 msgstr "אם אין פרקים זמינים, הצג הודעה "
 
-msgctxt "#32902"
-msgid "Query the ChapterDb if video is missing chapters"
-msgstr "שלח שאילתה ל-ChapterDb אם לוידאו חסרים פרקים"
-
-msgctxt "#32903"
-msgid "Preferred FPS for ChapterDb queries"
-msgstr "FPS מועדף עבור שאילתות ChapterDb"
-
 msgctxt "#32904"
 msgid "Display notification message for "
 msgstr "הצג הודעה למשך "
 
 msgctxt "#32905"
-msgid "%2.0f seconds"
-msgstr "%2.0f שניות"
+msgid "{0:d} seconds"
+msgstr "{0:d} שניות"
 
 msgctxt "#32906"
-msgid "%2.0f minutes before end"
-msgstr "%2.0f דקות לסיום"
+msgid "{0:d} minutes before end"
+msgstr "{0:d} דקות לסיום"

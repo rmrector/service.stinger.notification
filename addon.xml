@@ -9,18 +9,12 @@
 		<summary lang="en">This service notifies you of stinger scenes in the currently playing movie.</summary>
 		<description lang="en_gb">This add-on notifies you of stinger scenes in the current movie, popping up a notification when the credits roll. It uses tags to identify movies that have a stinger scene, which can be automatically added by the Universal Movie Scraper from The Movie Database.</description>
 		<disclaimer lang="en_gb">This add-on requires the tags 'aftercreditsstinger' and/or 'duringcreditsstinger' on movies with a stinger scene.</disclaimer>
-		<summary lang="pl">Ta usługa powiadamia o dodatkowych scenach po napisach końcowych w aktualnie odtwarzanym filmie.</summary>
-		<description lang="pl">Ten dodatek powiadamia o dodatkowych scenach po napisach końcowych w aktualnie odtwarzanym filmie, wyświetlając powiadomienie podczas napisów końcowych. Do tego celu używa tagów aby zidentyfikować filmy posiadające takie sceny. Tagi mogą być automatycznie dodawane przez Universal Movie Scraper z bazy The Movie Database. Dodatek może również wysyłać zapytania do bazy ChapterDb aby zidentyfikować moment wyświetlania końcowych napisów, jeśli odtwarzany film nie zawiera osadzonych informacji o rozdziałach.</description>
-		<disclaimer lang="pl">Ten dodatek wymaga tagów 'aftercreditsstinger' i/lub 'duringcreditsstinger' w filmach ze scenami występującymi w trakcie lub po napisach końcowych.</disclaimer>
-		<news>v1.0.5 (2018-10-14)
-- Break Isengard compatibility
-- Fix finding last chapter on Kodi Leia
-
-v1.0.4 (2017-08-30)
-- Fix some issues with Kodi Leia
-
-v1.0.3 (2017-04-14)
-- Work around Kodi bug introduced in Krypton when playing movie from Home window</news>
+		<summary lang="pl_pl">Ta usługa powiadamia o dodatkowych scenach po napisach końcowych w aktualnie odtwarzanym filmie.</summary>
+		<description lang="pl_pl">Ten dodatek powiadamia o dodatkowych scenach po napisach końcowych w aktualnie odtwarzanym filmie, wyświetlając powiadomienie podczas napisów końcowych. Do tego celu używa tagów aby zidentyfikować filmy posiadające takie sceny. Tagi mogą być automatycznie dodawane przez Universal Movie Scraper z bazy The Movie Database. Dodatek może również wysyłać zapytania do bazy ChapterDb aby zidentyfikować moment wyświetlania końcowych napisów, jeśli odtwarzany film nie zawiera osadzonych informacji o rozdziałach.</description>
+		<disclaimer lang="pl_pl">Ten dodatek wymaga tagów 'aftercreditsstinger' i/lub 'duringcreditsstinger' w filmach ze scenami występującymi w trakcie lub po napisach końcowych.</disclaimer>
+		<news>v2.0.0 (2021-01-31)
+- Kodi 19 Matrix / Python 3 compatibility. Breaks compatibility with previous versions of Kodi.
+- remove ChapterDB</news>
 		<source>https://github.com/rmrector/service.stinger.notification</source>
 		<forum>https://forum.kodi.tv/showthread.php?tid=254004</forum>
 		<license>The MIT License</license>

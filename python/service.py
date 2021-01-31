@@ -148,11 +148,11 @@ class StingerService(xbmc.Monitor):
         self.notified = True
         message = None
         if self.stingertype == DURING_CREDITS_STINGER_TAG:
-            message = addon.getLocalizedString(DURING_CREDITS_STINGER_MESSAGE).encode('utf-8')
-            stingertype = addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE).encode('utf-8')
+            message = addon.getLocalizedString(DURING_CREDITS_STINGER_MESSAGE)
+            stingertype = addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE)
         elif self.stingertype == AFTER_CREDITS_STINGER_TAG:
-            message = addon.getLocalizedString(AFTER_CREDITS_STINGER_MESSAGE).encode('utf-8')
-            stingertype = addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE).encode('utf-8')
+            message = addon.getLocalizedString(AFTER_CREDITS_STINGER_MESSAGE)
+            stingertype = addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE)
         elif self.stingertype == BOTH_STINGERS_PROPERTY:
             message = addon.getLocalizedString(BOTH_STINGERS_MESSAGE)
             stingertype = '{0}, [LOWERCASE]{1}[/LOWERCASE]'.format(addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE), addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE))
