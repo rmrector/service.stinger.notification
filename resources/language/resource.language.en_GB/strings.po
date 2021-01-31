@@ -70,9 +70,18 @@ msgid "Display notification message for "
 msgstr ""
 
 msgctxt "#32905"
-msgid "%2.0f seconds"
+msgid "{0:d} seconds"
 msgstr ""
 
 msgctxt "#32906"
-msgid "%2.0f minutes before end"
+msgid "{0:d} minutes before end"
+msgstr ""
+
+# no translation
+msgctxt "#32996"
+msgid "duringcreditsstinger"
+msgstr ""
+
+msgctxt "#32997"
+msgid "aftercreditsstinger"
 msgstr ""

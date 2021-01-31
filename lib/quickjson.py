@@ -1,22 +1,11 @@
 import collections
+import json
 import sys
 import xbmc
-
-if sys.version_info < (2, 7):
-    import simplejson as json
-else:
-    import json
 
 movie_properties = ['imdbnumber', 'tag']
 
 nostingertags_filter = {'and': [{'field': 'tag', 'operator':'isnot', 'value':'duringcreditsstinger'}, {'field': 'tag', 'operator':'isnot', 'value':'aftercreditsstinger'}]}
-
-_kodiversion = None
-def get_kodi_version():
-    global _kodiversion
-    if _kodiversion is None:
-        _kodiversion = int(xbmc.getInfoLabel('System.BuildVersion').split('.')[0])
-    return _kodiversion
 
 def get_movies(sort_method='sorttitle', ascending=True, limit=None, properties=None, listfilter=None):
     json_request = get_base_json_request('VideoLibrary.GetMovies')
@@ -46,7 +35,7 @@ def get_movie_details(movie_id, properties=None):
 def set_movie_details(movie_id, **movie_details):
     json_request = get_base_json_request('VideoLibrary.SetMovieDetails')
     json_request['params']['movieid'] = movie_id
-    for param, value in movie_details.iteritems():
+    for param, value in movie_details.items():
         json_request['params'][param] = value
 
     json_result = execute_jsonrpc(json_request)
@@ -60,7 +49,7 @@ def execute_jsonrpc(jsonrpc_command):
         jsonrpc_command = json.dumps(jsonrpc_command)
 
     json_result = xbmc.executeJSONRPC(jsonrpc_command)
-    return json.loads(json_result, cls=UTF8JSONDecoder)
+    return json.loads(json_result)
 
 def _check_json_result(json_result, result_key, json_request):
     if 'error' in json_result:
@@ -78,8 +67,6 @@ class JSONException(Exception):
         message += "\nResult: "
         message += json.dumps(json_result, skipkeys=True, ensure_ascii=False, indent=2, cls=LogJSONEncoder)
 
-        if isinstance(message, unicode):
-            message = message.encode('utf-8')
         super(JSONException, self).__init__(message)
 
 class LogJSONEncoder(json.JSONEncoder):
@@ -91,22 +78,3 @@ class LogJSONEncoder(json.JSONEncoder):
         if hasattr(obj, '__dict__'):
             return obj.__dict__
         return str(obj)
-
-class UTF8JSONDecoder(json.JSONDecoder):
-    def __init__(self, *args, **kwargs):
-        super(UTF8JSONDecoder, self).__init__(*args, **kwargs)
-
-    def raw_decode(self, s, idx=0):
-        result, end = super(UTF8JSONDecoder, self).raw_decode(s)
-        result = self._json_unicode_to_str(result)
-        return result, end
-
-    def _json_unicode_to_str(self, jsoninput):
-        if isinstance(jsoninput, dict):
-            return dict((self._json_unicode_to_str(key), self._json_unicode_to_str(value)) for key, value in jsoninput.iteritems())
-        elif isinstance(jsoninput, list):
-            return [self._json_unicode_to_str(item) for item in jsoninput]
-        elif isinstance(jsoninput, unicode):
-            return jsoninput.encode('utf-8')
-        else:
-            return jsoninput

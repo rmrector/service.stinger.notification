@@ -3,7 +3,7 @@ import string
 import xbmcvfs
 from contextlib import closing
 
-from thechapterdb import TheChapterDB
+from lib.thechapterdb import TheChapterDB
 
 addonid = 'service.stinger.notification'
 

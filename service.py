@@ -73,13 +73,10 @@ class StingerService(xbmc.Monitor):
             from lib import commander
             commander.graball_stingertags()
             return
-        if method not in (('Player.OnStop', 'Player.OnAVStart') if quickjson.get_kodi_version() >= 18
-                else ('Player.OnPlay', 'Player.OnStop')):
+        if method not in ('Player.OnStop', 'Player.OnAVStart'):
             return
 
         data = json.loads(data)
-        if is_data_onplay_bugged(data, method):
-            data['item']['id'], data['item']['type'] = hack_onplay_databits()
 
         if not data or 'item' not in data or 'id' not in data['item'] or \
                 data['item'].get('type') != 'movie' or data['item']['id'] == -1:
@@ -188,29 +185,6 @@ class StingerService(xbmc.Monitor):
 
     def onSettingsChanged(self):
         self.get_settings()
-
-def is_data_onplay_bugged(data, method):
-    return 'item' in data and 'id' not in data['item'] and data['item'].get('type') == 'movie' and \
-        data['item'].get('title') == '' and quickjson.get_kodi_version() >= 17 and method == 'Player.OnPlay'
-
-def hack_onplay_databits():
-    # HACK: Workaround for Kodi 17 bug, not including the correct info in the notification when played
-    #  from home window or other non-media windows. http://trac.kodi.tv/ticket/17270
-
-    # VideoInfoTag can be incorrect immediately after the notification as well, keep trying
-    if not xbmc.Player().isPlayingVideo(): # But not isPlayingVideo
-        return -1, ""
-    mediatype = xbmc.Player().getVideoInfoTag().getMediaType()
-    count = 0
-    while not mediatype and count < 10:
-        xbmc.sleep(200)
-        if not xbmc.Player().isPlayingVideo():
-            return -1, ""
-        mediatype = xbmc.Player().getVideoInfoTag().getMediaType()
-        count += 1
-    if not mediatype:
-        return -1, ""
-    return xbmc.Player().getVideoInfoTag().getDbId(), mediatype
 
 if __name__ == '__main__':
     log('Started', xbmc.LOGINFO)
