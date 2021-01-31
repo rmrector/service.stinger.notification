@@ -2,8 +2,8 @@ import xbmc
 import xbmcaddon
 import xbmcgui
 
-from lib import quickjson
-from lib.themoviedb import TheMovieDatabase
+from libs import quickjson
+from libs.themoviedb import TheMovieDatabase
 
 addon = xbmcaddon.Addon()
 

@@ -2,8 +2,8 @@ import json
 import xbmc
 import xbmcaddon
 
-from lib import quickjson
-from lib.notificationwindow import NotificationWindow
+from libs import quickjson
+from libs.notificationwindow import NotificationWindow
 
 DURING_CREDITS_STINGER_MESSAGE = 32000
 AFTER_CREDITS_STINGER_MESSAGE = 32001
@@ -65,7 +65,7 @@ class StingerService(xbmc.Monitor):
 
     def onNotification(self, sender, method, data):
         if sender == 'service.stinger.notification' and method == 'Other.TagCheck':
-            from lib import commander
+            import commander
             commander.graball_stingertags()
             return
         if method not in ('Player.OnStop', 'Player.OnAVStart'):
@@ -154,10 +154,12 @@ class StingerService(xbmc.Monitor):
             message = addon.getLocalizedString(AFTER_CREDITS_STINGER_MESSAGE).encode('utf-8')
             stingertype = addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE).encode('utf-8')
         elif self.stingertype == BOTH_STINGERS_PROPERTY:
-            message = addon.getLocalizedString(BOTH_STINGERS_MESSAGE).encode('utf-8')
-            stingertype = '{0}, [LOWERCASE]{1}[/LOWERCASE]'.format(addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE).encode('utf-8'), addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE).encode('utf-8'))
+            message = addon.getLocalizedString(BOTH_STINGERS_MESSAGE)
+            stingertype = '{0}, [LOWERCASE]{1}[/LOWERCASE]'.format(addon.getLocalizedString(DURING_CREDITS_STINGER_TYPE), addon.getLocalizedString(AFTER_CREDITS_STINGER_TYPE))
+
         if not message:
             return
+
         if self.use_simplenotification:
             xbmc.executebuiltin('Notification("{0}", "{1}", {2}, special://home/addons/service.stinger.notification/resources/media/logo.png)'.format(stingertype, message, self.notification_visibletime * 1000))
         else:
