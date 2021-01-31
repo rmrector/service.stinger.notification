@@ -10,6 +10,9 @@
 		<summary lang="en">This service notifies you of stinger scenes in the currently playing movie.</summary>
 		<description lang="en">This add-on notifies you of stinger scenes in the current movie, popping up a notification when the credits roll. It uses tags to identify movies that have a stinger scene, which can be automatically added by the Universal Movie Scraper from The Movie Database. It can also query the ChapterDb to identify the end credits if the media file does not have its own chapters.</description>
 		<disclaimer lang="en">This add-on requires the tags 'aftercreditsstinger' and/or 'duringcreditsstinger' on movies with a stinger scene.</disclaimer>
+		<summary lang="pl">Ta usługa powiadamia o dodatkowych scenach po napisach końcowych w aktualnie odtwarzanym filmie.</summary>
+		<description lang="pl">Ten dodatek powiadamia o dodatkowych scenach po napisach końcowych w aktualnie odtwarzanym filmie, wyświetlając powiadomienie podczas napisów końcowych. Do tego celu używa tagów aby zidentyfikować filmy posiadające takie sceny. Tagi mogą być automatycznie dodawane przez Universal Movie Scraper z bazy The Movie Database. Dodatek może również wysyłać zapytania do bazy ChapterDb aby zidentyfikować moment wyświetlania końcowych napisów, jeśli odtwarzany film nie zawiera osadzonych informacji o rozdziałach.</description>
+		<disclaimer lang="pl">Ten dodatek wymaga tagów 'aftercreditsstinger' i/lub 'duringcreditsstinger' w filmach ze scenami występującymi w trakcie lub po napisach końcowych.</disclaimer>
 		<news>
 v1.0.5 (2018-10-14)
 - Break Isengard compatibility
