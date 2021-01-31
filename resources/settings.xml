@@ -20,11 +20,6 @@
 						<formatlabel>32906</formatlabel>
 					</control>
 				</setting>
-				<setting id="query_chapterdb" type="boolean" label="32902" help="">
-					<level>0</level>
-					<default>true</default>
-					<control type="toggle"/>
-				</setting>
 				<setting id="notification_visibletime" type="integer" label="32904" help="">
 					<level>0</level>
 					<default>8</default>
@@ -40,20 +35,6 @@
 			</group>
 		</category>
 		<category id="advanced" label="10038" help="">
-			<group id="1">
-				<setting id="preferredfps" type="string" label="32903" help="">
-					<level>0</level>
-					<default>23.976</default>
-					<constraints>
-						<options>
-							<option label="23.976">23.976</option>
-							<option label="25">25</option>
-							<option label="29.97">29.97</option>
-						</options>
-					</constraints>
-					<control type="spinner" format="string"/>
-				</setting>
-			</group>
 			<group id="2" label="32999">
 				<setting id="duringcreditsstinger_tag" type="string" label="32996" help="">
 					<level>0</level>
@@ -75,16 +56,6 @@
 						<heading>32997</heading>
 					</control>
 				</setting>
-				<setting id="fulllibrary_tagschecked" type="boolean" help="">
-					<level>0</level>
-					<default>false</default>
-					<dependencies>
-						<dependency type="visible">
-							<condition on="property" name="InfoBool">false</condition>
-						</dependency>
-					</dependencies>
-					<control type="toggle"/>
-				</setting>
 			</group>
 			<group id="3" label="32998">
 				<setting id="tagcheck" type="action" label="32400" help="">
@@ -99,6 +70,16 @@
 						</dependency>
 					</dependencies>
 					<control type="button" format="action"/>
+				</setting>
+				<setting id="fulllibrary_tagschecked" type="boolean" help="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition on="property" name="InfoBool">false</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
 				</setting>
 			</group>
 		</category>

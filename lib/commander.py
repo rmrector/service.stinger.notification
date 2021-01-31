@@ -36,4 +36,4 @@ def graball_stingertags():
     progress.close()
     if not cancelled:
         xbmcgui.Dialog().ok(addon.getLocalizedString(32400), addon.getLocalizedString(32401))
-        addon.setSetting('fulllibrary_tagschecked', 'true')
+        addon.setSettingBool('fulllibrary_tagschecked', True)

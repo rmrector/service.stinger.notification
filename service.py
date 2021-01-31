@@ -3,7 +3,6 @@ import xbmc
 import xbmcaddon
 
 from lib import quickjson
-from lib.chapters import ChaptersFile
 from lib.notificationwindow import NotificationWindow
 
 DURING_CREDITS_STINGER_MESSAGE = 32000
@@ -27,7 +26,6 @@ class StingerService(xbmc.Monitor):
         self.totalchapters = None
         self._stingertype = None
         self.notified = False
-        self.externalchapterstart = None
         self.get_settings()
 
     def reset(self):
@@ -36,20 +34,17 @@ class StingerService(xbmc.Monitor):
         self._stingertype = None
         xbmc.executebuiltin('ClearProperty(stinger, fullscreenvideo)')
         self.notified = False
-        self.externalchapterstart = None
 
     def get_settings(self):
-        self.use_simplenotification = addon.getSetting('use_simplenotification') == 'true'
-        self.query_chapterdb = addon.getSetting('query_chapterdb') == 'true'
-        self.preferredfps = addon.getSetting('preferredfps')
-        self.aftercredits_tag = addon.getSetting('aftercreditsstinger_tag')
-        self.duringcredits_tag = addon.getSetting('duringcreditsstinger_tag')
+        self.use_simplenotification = addon.getSettingBool('use_simplenotification')
+        self.aftercredits_tag = addon.getSettingString('aftercreditsstinger_tag')
+        self.duringcredits_tag = addon.getSettingString('duringcreditsstinger_tag')
         try:
-            self.whereis_theend = int(addon.getSetting('timeremaining_notification'))
+            self.whereis_theend = addon.getSettingInt('timeremaining_notification')
         except ValueError:
             self.whereis_theend = 10
         try:
-            self.notification_visibletime = int(addon.getSetting('notification_visibletime'))
+            self.notification_visibletime = addon.getSettingInt('notification_visibletime')
         except ValueError:
             self.notification_visibletime = 8
 
@@ -121,17 +116,10 @@ class StingerService(xbmc.Monitor):
         if not player.isPlayingVideo():
             self.currentid = None
             return
-        if not self.totalchapters:
-            duration = player.getTotalTime()
-            chapters = ChaptersFile(title, int(duration), self.preferredfps, self.query_chapterdb)
-            self.externalchapterstart = chapters.lastchapterstart
 
     def check_for_display(self):
         if self.totalchapters:
             if self.on_lastchapter():
-                return True
-        elif self.externalchapterstart:
-            if self.on_lastexternalchapter():
                 return True
         else:
             if self.near_endofmovie():
@@ -143,9 +131,6 @@ class StingerService(xbmc.Monitor):
             return int(xbmc.getInfoLabel('Player.Chapter')) == self.totalchapters
         except ValueError:
             return False
-
-    def on_lastexternalchapter(self):
-        return xbmc.getInfoLabel('Player.Time(hh:mm:ss)') > self.externalchapterstart
 
     def near_endofmovie(self):
         player = xbmc.Player()

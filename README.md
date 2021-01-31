@@ -11,8 +11,7 @@ under "Services", for Kodi 16 Jarvis and up.
 It uses tags to identify movies that have a stinger scene, which can be automatically
 added by the [Universal Movie Scraper] from [The Movie Database], as 'aftercreditsstinger'
 and 'duringcreditsstinger'.
-If there are no chapters on your media file, the add-on searches for them on the
-[ChapterDb]. If chapters are available, the notification pops up when the last chapter
+If chapters are available, the notification pops up when the last chapter
 starts, which is generally the credits, otherwise 10 (configurable) minutes before
 the movie ends.
 
@@ -26,7 +25,8 @@ the movie ends.
 ### Adding tags
 
 To add these tags to new movies automatically, use a movie scraper that can set tags
-from The Movie Database. The Universal Movie Scraper can be configured with a setting.
+from The Movie Database. The Universal Movie Scraper and The Movie Database Python
+can be configured with a setting.
 
 If your existing movies don't already have these tags, you can avoid rescraping them
 with a handy once-off option in the add-on settings under "Advanced", "Grab stinger
