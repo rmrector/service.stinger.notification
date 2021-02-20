@@ -4,7 +4,7 @@
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" version="2.9.1" />
 	</requires>
-	<extension point="xbmc.service" start="login" library="python/service.py" />
+	<extension point="xbmc.service" library="python/service.py" />
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">This service notifies you of stinger scenes in the currently playing movie.</summary>
 		<description lang="en_GB">This add-on notifies you of stinger scenes in the current movie, popping up a notification when the credits roll. It uses tags to identify movies that have a stinger scene, which can be automatically added by the Universal Movie Scraper from The Movie Database.</description>
