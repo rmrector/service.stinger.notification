@@ -18,7 +18,7 @@ jobs:
       with:
         kodi-repository: repo-scripts
         kodi-version: matrix
-        addon-id: script.playrandomvideos
+        addon-id: service.stinger.notification
       env:
         GH_USERNAME: ${{ github.actor }}
         GH_TOKEN: ${{secrets.GH_TOKEN}}
