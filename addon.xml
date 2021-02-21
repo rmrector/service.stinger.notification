@@ -17,7 +17,7 @@
 - remove ChapterDB</news>
 		<source>https://github.com/rmrector/service.stinger.notification</source>
 		<forum>https://forum.kodi.tv/showthread.php?tid=254004</forum>
-		<license>The MIT License</license>
+		<license>MIT</license>
 		<platform>all</platform>
 		<assets>
 			<icon>icon.png</icon>

@@ -174,6 +174,6 @@ class StingerService(xbmc.Monitor):
         self.get_settings()
 
 if __name__ == '__main__':
-    log('Started', xbmc.LOGINFO)
+    log('Started')
     StingerService().run()
-    log('Stopped', xbmc.LOGINFO)
+    log('Stopped')
