@@ -1,5 +1,6 @@
 import json
 import xbmc
+import xbmcgui
 import xbmcaddon
 
 from libs import quickjson
@@ -161,7 +162,8 @@ class StingerService(xbmc.Monitor):
             return
 
         if self.use_simplenotification:
-            xbmc.executebuiltin('Notification("{0}", "{1}", {2}, special://home/addons/service.stinger.notification/resources/media/logo.png)'.format(stingertype, message, self.notification_visibletime * 1000))
+            icon = "special://home/addons/service.stinger.notification/resources/media/logo.png"
+            xbmcgui.Dialog().notification(stingertype, message, icon, self.notification_visibletime * 1000)
         else:
             window = NotificationWindow('script-stinger-notification-Notification.xml', addon.getAddonInfo('path'), 'Default', '1080i')
             window.message = message
